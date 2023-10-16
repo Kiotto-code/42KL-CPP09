@@ -32,8 +32,10 @@ void BitcoinExchange::setAddress(const std::string & address)
 void BitcoinExchange::dictCat(const std::string & address)
 {
 	std::ifstream file;
+	std::string temp;
+	std::list<std::string> rate_line;
+	// std::string rate_map;
 	std::string line;
-	// std::stringstream line();
 
 	file.open(address);
 	if (!file.is_open())
@@ -41,10 +43,17 @@ void BitcoinExchange::dictCat(const std::string & address)
 		std::cerr << "Failed to open the file!" << std::endl;
 		return ;
 	}
+
+	//each line in file was putted into line ()
 	while(std::getline(file, line))
 	{
+		std::stringstream ss(line);
 		std::cout << line << std::endl;
-		std::getline(ss, ',');
+		std::cin.get();
+		while (std::getline(ss, temp, ','))
+			rate_line.push_back(temp);
+		(this->dict)[temp[0]]
 	}
-	file.close()
+	std::cout << rate_map << std::endl;
+	file.close();
 }

@@ -1,6 +1,6 @@
 NAME			=	btc
 CXX				=	c++
-CXXFLAG			=	-Wall -Werror -Wextra -std=c++98
+CXXFLAG			=	-Wall -Werror -Wextra -std=c++98 -g3 -fsanitize=address
 INCLUDES		=	./includes
 SRCS_PATH		=	./srcs
 OBJS_PATH		=	./objs
@@ -20,9 +20,12 @@ all				:	$(NAME)
 $(NAME)			:	$(OBJS)
 					$(CXX) $(CXXFLAG) -I$(INCLUDES) $^ -o $@
 
-$(OBJS_PATH)/%.o:	$(SRCS_PATH)/%.cpp ./Makefile $(INCLUDES) | $(OBJS_PATH)
+$(OBJS_PATH)/%.o:	$(SRCS_PATH)/%.cpp ./Makefile $(INCLUDES) | ${OBJS_PATH}
 					mkdir -p $(@D)
 					$(CXX) $(CXXFLAG) -I$(INCLUDES) -c $< -o $@
+
+$(OBJS_PATH)			:
+							mkdir -p $(OBJS_PATH)
 
 clean					:
 							rm -rf $(OBJS_PATH)
