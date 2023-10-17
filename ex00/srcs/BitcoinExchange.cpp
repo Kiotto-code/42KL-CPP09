@@ -24,36 +24,54 @@ BitcoinExchange & BitcoinExchange::operator=(BitcoinExchange const & rhs)
 	return (*this);
 }
 
-void BitcoinExchange::setAddress(const std::string & address)
-{
-	this->_address = address;
-}
+// void BitcoinExchange::setAddress(const std::string & address)
+// {
+// 	this->_address = address;
+// }
 
-void BitcoinExchange::dictCat(const std::string & address)
+/**
+ * @brief 	dictCat is to read the file from the path(e.g. data.csv) and then inset them into the BitcoinExchange 
+ * 			Dict std::map 
+ * 
+ * @param path 
+ */
+void BitcoinExchange::dictCat(const std::string & path)
 {
 	std::ifstream file;
 	std::string temp;
-	std::list<std::string> rate_line;
+	std::string rate_line;
+	// std::list<std::string> rate_line;
 	// std::string rate_map;
 	std::string line;
 
-	file.open(address);
+	file.open(path);
 	if (!file.is_open())
 	{
 		std::cerr << "Failed to open the file!" << std::endl;
 		return ;
 	}
 
+	
+
 	//each line in file was putted into line ()
 	while(std::getline(file, line))
 	{
-		std::stringstream ss(line);
-		std::cout << line << std::endl;
-		std::cin.get();
-		while (std::getline(ss, temp, ','))
-			rate_line.push_back(temp);
-		(this->dict)[temp[0]]
+		insertToMap(line);
 	}
-	std::cout << rate_map << std::endl;
 	file.close();
+}
+
+void BitcoinExchange::insertToMap(std::string line)
+{
+	char original[line.size() + 1];
+	strcpy(original, line.c_str());
+
+	int date = checkFormat(strtok(original, ","));
+	double rate = strtod(strtok(NULL, ","), NULL);
+	this->dict[date] = rate;
+}
+
+int BitcoinExchange::checkFormat(char *date)
+{
+
 }

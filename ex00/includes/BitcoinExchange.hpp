@@ -14,7 +14,7 @@ class BitcoinExchange
 {
 	private:
 		std::string _address;
-		std::map <std::string, std::string> dict;
+		std::map <int, double> dict;
 
 	public:
 		BitcoinExchange(void);
@@ -24,7 +24,9 @@ class BitcoinExchange
 		BitcoinExchange & operator=(BitcoinExchange const & rhs);
 
 		// setter
-		void setAddress(const std::string & address);
+		void insertToMap(std::string);
+		int checkFormat(char *);
+		// void setAddress(const std::string & address);
 		void dictCat(const std::string & address);
 	
 };
