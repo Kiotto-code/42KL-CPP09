@@ -40,8 +40,6 @@ void BitcoinExchange::dictCat(const std::string & path)
 	std::ifstream file;
 	std::string temp;
 	std::string rate_line;
-	// std::list<std::string> rate_line;
-	// std::string rate_map;
 	std::string line;
 
 	file.open(path);
@@ -50,10 +48,6 @@ void BitcoinExchange::dictCat(const std::string & path)
 		std::cerr << "Failed to open the file!" << std::endl;
 		return ;
 	}
-
-	
-
-	//each line in file was putted into line ()
 	while(std::getline(file, line))
 	{
 		insertToMap(line);
@@ -67,11 +61,47 @@ void BitcoinExchange::insertToMap(std::string line)
 	strcpy(original, line.c_str());
 
 	int date = checkFormat(strtok(original, ","));
+	std::cerr << "check:" << "date: " << date << std::endl;
+	std::cout << "check: " << date << std::endl;
 	double rate = strtod(strtok(NULL, ","), NULL);
 	this->dict[date] = rate;
 }
 
-int BitcoinExchange::checkFormat(char *date)
+int checkFormat(std::string date)
 {
+	struct tm tm; //for the use of strptime() parameter
+	char *ret;
 
+	try
+	{
+		ret = strptime(date.c_str(), "%Y-%m-%d", &tm); //strptime would return null if the date given is invalid ;).
+		if (ret == NULL || *ret != '\0')//when eof it would return a NUL character "\0"
+			throw wrongFormatException();
+		return tm.tm_year * 10000 + tm.tm_mon * 100 + tm.tm_mday; //return the info in the integer
+	}
+	catch(wrongFormatException &e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	return false;
+}
+
+const char* wrongFormatException::what() const throw()
+{
+	return ("Wrong Format Give");
+}
+
+const char* badInput::what() const throw()
+{
+	return ("Wrong File Input");
+}
+
+const char* negativeValue::what() const throw()
+{
+	return ("File Input Negative Value");
+}
+
+const char* largeNumber::what() const throw()
+{
+	return ("The number is too large it exceeds the 1000 max value(0-1000 range)");
 }
