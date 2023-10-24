@@ -48,8 +48,10 @@ void BitcoinExchange::dictCat(const std::string & path)
 		std::cerr << "Failed to open the file!" << std::endl;
 		return ;
 	}
+	std::getline(file, line);
 	while(std::getline(file, line))
 	{
+		spaceRemoval(line);
 		insertToMap(line);
 	}
 	file.close();
@@ -61,10 +63,15 @@ void BitcoinExchange::insertToMap(std::string line)
 	strcpy(original, line.c_str());
 
 	int date = checkFormat(strtok(original, ","));
-	std::cerr << "check:" << "date: " << date << std::endl;
-	std::cout << "check: " << date << std::endl;
+	// std::cerr << "check:" << "date: " << date << std::endl;
+	// std::cout << "check: " << date << std::endl;
 	double rate = strtod(strtok(NULL, ","), NULL);
 	this->dict[date] = rate;
+}
+
+std::map <int, double> &BitcoinExchange::getDict(void)
+{
+	return this->dict;
 }
 
 int checkFormat(std::string date)
@@ -81,9 +88,16 @@ int checkFormat(std::string date)
 	}
 	catch(wrongFormatException &e)
 	{
-		std::cerr << e.what() << '\n';
+		// std::cerr << e.what() << '\n';
 	}
 	return false;
+}
+
+void spaceRemoval(std::string &line)
+{
+	if (line.empty())
+		return ;
+	line.erase(std::remove_if(line.begin(), line.end(), ::isspace), line.end());
 }
 
 const char* wrongFormatException::what() const throw()
@@ -104,4 +118,9 @@ const char* negativeValue::what() const throw()
 const char* largeNumber::what() const throw()
 {
 	return ("The number is too large it exceeds the 1000 max value(0-1000 range)");
+}
+
+const char* tooEarlyBirdError::what() const throw()
+{
+	return ("The input date given is too early for the data.csv (wry)");
 }
