@@ -1,11 +1,7 @@
-#ifndef RPN_HPP
-# define RPN_HPP
+#ifndef COLOR_HPP
+# define COLOR_HPP
 
-# include <iostream>
-# include <sstream>
-# include <string>
-# include <stack>
-# include <stdexcept>
+
 
 # define GREEN	"\x1B[0;92m"
 # define YELLOW	"\x1B[0;93m"
@@ -17,7 +13,5 @@
 # define ORANGE	"\x1B[38;5;202m"
 # define RED	"\x1B[38;5;160m"
 # define RESET	"\033[0m"
-
-int RPN(std::string equation);
 
 #endif

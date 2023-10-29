@@ -67,7 +67,10 @@
     "iomanip": "cpp",
     "list": "cpp",
     "stack": "cpp",
-    "filesystem": "cpp"
+    "filesystem": "cpp",
+    "*.tpp": "cpp",
+    "__memory": "cpp",
+    "memory_resource": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

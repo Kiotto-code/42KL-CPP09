@@ -2,9 +2,9 @@
 # define RPN_HPP
 
 # include <iostream>
+# include <stack>
 # include <sstream>
 # include <string>
-# include <stack>
 # include <stdexcept>
 
 # define GREEN	"\x1B[0;92m"
