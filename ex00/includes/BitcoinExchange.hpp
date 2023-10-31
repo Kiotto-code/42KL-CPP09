@@ -34,6 +34,7 @@ class BitcoinExchange
 
 		// setter
 		void insertToMap(std::string);
+		static std::string realDate(int date);
 		// int checkFormat(std::string);
 		// void setAddress(const std::string & address);
 		void dictCat(const std::string & address);

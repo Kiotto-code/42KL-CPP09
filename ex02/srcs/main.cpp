@@ -2,12 +2,16 @@
 
 bool checkNumberStr(char *input)
 {
-	for (int i = 0; i < strlen(input); i++) {
-		// std::cout << input[i] << std::endl;
-		if(isdigit(input[i]) == false)
-			return false;
-	}
-	return true;
+	// for (int i = 0; i < strlen(input); i++) {
+	// 	// std::cout << input[i] << std::endl;
+	// 	if(isdigit(input[i]) == false)
+	// 		return false;
+	// }
+	// return true;
+	if (std::all_of(input, input + strlen(input), &::isdigit))
+		return true;
+	else
+		return false;
 }
 
 void printInteger(int num)
@@ -85,10 +89,10 @@ int main(int ac, char **av)
 	std::cout << CYAN"\n\n\nTHE ORDER BEFORE CONTAINERS TO EXECUTE FORD-JOHNSON\n"RESET;
 	std::cout << YELLOW;
 	std::cout << "Before mergeSort->Vector"; printContainer(varr); std::cout << std::endl;
-	std::cout << RED"The Oreder Vector ";checkOrder(varr);
+	std::cout << RED"The Order Vector ";checkOrder(varr);
 	std::cout << BLUE;
 	std::cout << "Before mergeSort->Deque"; printContainer(darr); std::cout << std::endl;
-	std::cout << RED"The Oreder Deque ";checkOrder(darr);
+	std::cout << RED"The Order Deque ";checkOrder(darr);
 	// auto vec_start = std::chrono::steady_clock::now();
 	// std::chrono::steady_clock::time_point vec_start = std::chrono::steady_clock::now();
 	std::cout << ORANGE"\n\n\t [   Pmerge Sort Being Executed ....?   ]"RESET;
@@ -100,10 +104,10 @@ int main(int ac, char **av)
 	std::cout << CYAN"\n\n\nTHE ORDER AFTER CONTAINERS TO EXECUTE FORD-JOHNSON\n"RESET;
 	std::cout << YELLOW;
 	std::cout << "After mergeSort->Vector"; printContainer(varr); std::cout << std::endl;
-	std::cout << GREEN"The Oreder Vector ";checkOrder(varr);
+	std::cout << GREEN"The Order Vector ";checkOrder(varr);
 	std::cout << BLUE;
 	std::cout << "After mergeSort->Deque"; printContainer(darr); std::cout << std::endl;
-	std::cout << GREEN"The Oreder Deque ";checkOrder(darr);
+	std::cout << GREEN"The Order Deque ";checkOrder(darr);
 	// std::cout << "time taken for V_mergeSort " << (float)((float)(vec_end - vec_start)/ CLOCKS_PER_SEC);
 	// std::cout << "time taken for " << typeid(varr).name() << vector_duration.count();
 

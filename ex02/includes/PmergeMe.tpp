@@ -78,6 +78,8 @@
 # define PMERGEME_TPP
 
 # include "PmergeMe.hpp"
+// #include <string>
+// #include <typeinfo>
 
 // void mergeSort(Container&arr, int threshold);
 
@@ -98,11 +100,13 @@ void insertionSort(Container &arr) {
 
 // Merge sort implementation with the merge-insertion sort optimization
 template<typename Container>
-void mergeSort(Container& arr, int threshold) {
+void mergeSort(Container& arr, int threshold = 15) {
     if (arr.size() > threshold) {
         int mid = arr.size() / 2;
         Container leftHalf(arr.begin(), arr.begin() + mid);
         Container rightHalf(arr.begin() + mid, arr.end());
+
+        // std::cout << RED"check:" << demangle(typeid(leftHalf).name()) << std::endl;
 
         mergeSort(leftHalf, threshold);
         mergeSort(rightHalf, threshold);
@@ -140,7 +144,8 @@ template<typename Container>
 std::chrono::microseconds pmerge_me(Container &merge_vector)
 {
     std::chrono::steady_clock::time_point vec_start = std::chrono::steady_clock::now();
-	mergeSort(merge_vector, merge_vector[merge_vector.size()/2]);
+	mergeSort(merge_vector);
+	// mergeSort(merge_vector, merge_vector[merge_vector.size()/2]);
     std::chrono::steady_clock::time_point vec_end = std::chrono::steady_clock::now();
     std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(vec_end - vec_start);
     return duration;

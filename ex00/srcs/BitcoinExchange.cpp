@@ -69,6 +69,20 @@ void BitcoinExchange::insertToMap(std::string line)
 	this->dict[date] = rate;
 }
 
+std::string BitcoinExchange::realDate(int date)
+{
+	int d = date%100;
+    int m = (date/100)%100 + 1;
+    int y = date/10000 + 1900;
+
+	std::string ds = d < 10? "0" + std::to_string(d) : std::to_string(d);
+	std::string ms = m < 10? "0" + std::to_string(m) : std::to_string(m);
+	std::string ys = y < 10? "0" + std::to_string(y) : std::to_string(y);
+
+	std::string ret = ys + "-" + ms + "-" + ds;
+	return ret;
+}
+
 std::map <int, double> &BitcoinExchange::getDict(void)
 {
 	return this->dict;

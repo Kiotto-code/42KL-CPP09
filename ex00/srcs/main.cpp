@@ -72,7 +72,7 @@ int main(int ac, char **av)
 				it --;
 			// std::cout << GREEN"check: "RESET << "bitcoin exchange rate * value :" << it->second * filevalue << std::endl;
 			double evaluated_price = it->second * filevalue;
-			std::cout << filedate << " => " << filevalue << " = " << evaluated_price << std::endl;
+			std::cout << BitcoinExchange::realDate(filedate) << " => " << filevalue << " = " << evaluated_price << std::endl;
 
 
 

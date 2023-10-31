@@ -21,7 +21,7 @@ all				:	$(NAME)
 $(NAME)			:	$(OBJS)
 					$(CXX) $(CXXFLAG) -I$(INCLUDES) $^ -o $@
 
-$(OBJS_PATH)/%.o:	$(SRCS_PATH)/%.cpp ./Makefile $(INCLUDES) | ${OBJS_PATH}
+$(OBJS_PATH)/%.o:	$(SRCS_PATH)/%.cpp ./Makefile $(INCLUDES)/* | ${OBJS_PATH}
 					mkdir -p $(@D)
 					$(CXX) $(CXXFLAG) -I$(INCLUDES) -c $< -o $@
 
