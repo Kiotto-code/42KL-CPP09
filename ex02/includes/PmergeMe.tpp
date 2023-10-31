@@ -99,46 +99,91 @@ void insertionSort(Container &arr) {
 }
 
 // Merge sort implementation with the merge-insertion sort optimization
+// Merge sort implementation with the merge-insertion sort optimization
 template<typename Container>
-void mergeSort(Container& arr, int threshold = 15) {
+void mergeSort(Container& arr, int threshold = 30) {
     if (arr.size() > threshold) {
         int mid = arr.size() / 2;
         Container leftHalf(arr.begin(), arr.begin() + mid);
         Container rightHalf(arr.begin() + mid, arr.end());
 
-        // std::cout << RED"check:" << demangle(typeid(leftHalf).name()) << std::endl;
-
         mergeSort(leftHalf, threshold);
         mergeSort(rightHalf, threshold);
 
-        int i = 0, j = 0, k = 0;
+        // Container arr;
+        arr.clear();
+        typename Container::iterator it_left = leftHalf.begin();
+        typename Container::iterator it_right = rightHalf.begin();
 
-        while (i < leftHalf.size() && j < rightHalf.size()) {
-            if (leftHalf[i] < rightHalf[j]) {
-                arr[k] = leftHalf[i];
-                i++;
+        while (it_left != leftHalf.end() && it_right != rightHalf.end()) {
+            if (*it_left < *it_right) {
+                arr.insert(arr.end(), *it_left);
+                it_left++;
             } else {
-                arr[k] = rightHalf[j];
-                j++;
+                arr.insert(arr.end(), *it_right);
+                it_right++;
             }
-            k++;
         }
 
-        while (i < leftHalf.size()) {
-            arr[k] = leftHalf[i];
-            i++;
-            k++;
+        while (it_left != leftHalf.end()) {
+            arr.insert(arr.end(), *it_left);
+            it_left++;
         }
 
-        while (j < rightHalf.size()) {
-            arr[k] = rightHalf[j];
-            j++;
-            k++;
+        while (it_right != rightHalf.end()) {
+            arr.insert(arr.end(), *it_right);
+            it_right++;
         }
+
     } else {
         insertionSort(arr);
     }
 }
+
+
+
+
+// template<typename Container>
+// void mergeSort(Container& arr, int threshold = 30) {
+//     if (arr.size() > threshold) {
+//         int mid = arr.size() / 2;
+//         Container leftHalf(arr.begin(), arr.begin() + mid);
+//         Container rightHalf(arr.begin() + mid, arr.end());
+
+//         // std::cout << RED"check:" << demangle(typeid(leftHalf).name()) << std::endl;
+
+//         mergeSort(leftHalf, threshold);
+//         mergeSort(rightHalf, threshold);
+
+//         int i = 0, j = 0, k = 0;
+
+//         while (i < leftHalf.size() && j < rightHalf.size()) {
+//             if (leftHalf[i] < rightHalf[j]) {
+//                 arr[k] = leftHalf[i];
+//                 i++;
+//             } else {
+//                 arr[k] = rightHalf[j];
+//                 j++;
+//             }
+//             k++;
+//         }
+
+//         while (i < leftHalf.size()) {
+//             arr[k] = leftHalf[i];
+//             i++;
+//             k++;
+//         }
+
+//         while (j < rightHalf.size()) {
+//             arr[k] = rightHalf[j];
+//             j++;
+//             k++;
+//         }
+//     } else {
+//         insertionSort(arr);
+//     }
+// }
+
 
 template<typename Container>
 std::chrono::microseconds pmerge_me(Container &merge_vector)
