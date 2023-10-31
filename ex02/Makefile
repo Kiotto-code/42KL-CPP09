@@ -1,7 +1,7 @@
 NAME			=	PmergeMe
 CXX				=	c++
-# CXXFLAG			=	-Wall -Werror -Wextra -std=c++98 -g3 -fsanitize=address
-CXXFLAG			=	-std=c++98 -g3 -fsanitize=address
+CXXFLAG			=	-Wall -Werror -Wextra -std=c++98 -g3 -fsanitize=address
+CXXFLAG			=	-std=c++98 -g3 -fsanitize=address -Wall -MMD -MF $(@:.o=.d)
 INCLUDES		=	./includes
 SRCS_PATH		=	./srcs
 OBJS_PATH		=	./objs
@@ -15,6 +15,8 @@ WHITE		=	\033[38;5;15m
 GREY		=	\033[38;5;8m
 ORANGE		=	\033[38;5;202m
 RED			=	\033[38;5;160m
+
+# -MF dependencies.d
 
 all				:	$(NAME)
 

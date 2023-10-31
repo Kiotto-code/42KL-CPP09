@@ -31,16 +31,23 @@ void printContainer(Container &input)
 // }
 
 template<typename Container>
-void checkOrder(Container test)
+int checkOrder(Container test)
 {
 	// for (typename Container::iterator i = test.begin(); i != test.end(); i++)
 	// {
 		
 	// }
 	if (std::is_sorted(test.begin(), test.end()) == true)
+	{
 		std::cout << GREEN"they are all sort4ed!" << std::endl;
+		exit(1);
+		return (SORTED);
+	}
 	else
+	{
 		std::cout << RED"they are all NOT sort4ed!" << std::endl;
+		return (UNSORTED);
+	}
 	std::cout << RESET;
 }
 

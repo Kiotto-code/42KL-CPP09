@@ -11,6 +11,11 @@
 # include <cctype>
 # include <string>
 # include "color.hpp"
+
+enum suit {
+	SORTED = 0,
+	UNSORTED,
+};
 // # include <chrono>
 
 // void latentCounter(void *f);
