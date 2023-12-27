@@ -40,7 +40,6 @@ int checkOrder(Container test)
 	if (std::is_sorted(test.begin(), test.end()) == true)
 	{
 		std::cout << GREEN"they are all sort4ed!" << std::endl;
-		exit(1);
 		return (SORTED);
 	}
 	else
