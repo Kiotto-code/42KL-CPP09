@@ -7,57 +7,57 @@
 
 // void mergeSort(Container&arr, int threshold);
 
+template<typename Container>
+void insertionSort(Container &arr) {
+    for (int i = 1; i < arr.size(); ++i) {
+        int key = arr[i];
+        // decltype(arr[i]) key = arr[i];
+        // decltype(arr::value_type) key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
 // template<typename Container>
-// void insertionSort(Container &arr) {
-//     for (int i = 1; i < arr.size(); ++i) {
-//         int key = arr[i];
-//         // decltype(arr[i]) key = arr[i];
-//         // decltype(arr::value_type) key = arr[i];
-//         int j = i - 1;
-//         while (j >= 0 && arr[j] > key) {
-//             arr[j + 1] = arr[j];
-//             j = j - 1;
+// int binarySearch(Container &arr, int low, int high, int key) {
+//     while (low <= high) {
+//         int mid = low + (high - low) / 2;
+//         if (arr[mid] == key) {
+//             return mid; // Element already present, insert at this position
+//         } else if (arr[mid] < key) {
+//             low = mid + 1;
+//         } else {
+//             high = mid - 1;
 //         }
-//         arr[j + 1] = key;
 //     }
+//     return low; // Position to insert the element
 // }
 
-template<typename Container>
-int binarySearch(Container &arr, int low, int high, int key) {
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-        if (arr[mid] == key) {
-            return mid; // Element already present, insert at this position
-        } else if (arr[mid] < key) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-    return low; // Position to insert the element
-}
+// // Function to perform Binary Insertion Sort
+// template<typename Container>
+// void binaryInsertionSort(Container &arr) {
+//     int n = arr.size();
+//     for (int i = 1; i < n; ++i) {
+//         int key = arr[i];
+//         int j = i - 1;
 
-// Function to perform Binary Insertion Sort
-template<typename Container>
-void binaryInsertionSort(Container &arr) {
-    int n = arr.size();
-    for (int i = 1; i < n; ++i) {
-        int key = arr[i];
-        int j = i - 1;
+//         // Find the correct position using binary search
+//         int insertionIndex = binarySearch(arr, 0, j, key);
 
-        // Find the correct position using binary search
-        int insertionIndex = binarySearch(arr, 0, j, key);
+//         // Move elements to make space for the key
+//         while (j >= insertionIndex) {
+//             arr[j + 1] = arr[j];
+//             j--;
+//         }
 
-        // Move elements to make space for the key
-        while (j >= insertionIndex) {
-            arr[j + 1] = arr[j];
-            j--;
-        }
-
-        // Insert the key at the correct position
-        arr[insertionIndex] = key;
-    }
-}
+//         // Insert the key at the correct position
+//         arr[insertionIndex] = key;
+//     }
+// }
 
 // Merge sort implementation with the merge-insertion sort optimization
 // Merge sort implementation with the merge-insertion sort optimization
@@ -97,7 +97,8 @@ void mergeSort(Container& arr, int threshold = 30) {
         }
 
     } else {
-        binaryInsertionSort(arr);
+        insertionSort(arr);
+        // binaryInsertionSort(arr);
     }
 }
 
