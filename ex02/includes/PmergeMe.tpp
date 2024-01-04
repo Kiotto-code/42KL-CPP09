@@ -39,6 +39,7 @@ int binarySearch(Container &arr, int low, int high, int key) {
 
 // Function to perform Binary Insertion Sort
 template<typename Container>
+// Actually BinaryInsertionSort
 void insertionSort(Container &arr) {
     int n = arr.size();
     for (int i = 1; i < n; ++i) {
