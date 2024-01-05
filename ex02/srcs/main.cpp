@@ -2,12 +2,6 @@
 
 bool checkNumberStr(char *input)
 {
-	// for (int i = 0; i < strlen(input); i++) {
-	// 	// std::cout << input[i] << std::endl;
-	// 	if(isdigit(input[i]) == false)
-	// 		return false;
-	// }
-	// return true;
 	if (std::all_of(input, input + strlen(input), &::isdigit))
 		return true;
 	else
@@ -25,18 +19,10 @@ void printContainer(Container &input)
 	std::cout << " ";
 	std::for_each(input.begin(), input.end(), printInteger);
 }
-// void printContainer(std::vector<int> &input)
-// {
-// 	std::for_each(input.begin(), input.end(), printInteger);
-// }
 
 template<typename Container>
 int checkOrder(Container test)
 {
-	// for (typename Container::iterator i = test.begin(); i != test.end(); i++)
-	// {
-		
-	// }
 	if (std::is_sorted(test.begin(), test.end()) == true)
 	{
 		std::cout << GREEN"they are all sort4ed!" << std::endl;
@@ -95,28 +81,24 @@ int main(int ac, char **av)
 	std::cout << CYAN"\n\n\nTHE ORDER BEFORE CONTAINERS TO EXECUTE FORD-JOHNSON\n"RESET;
 	std::cout << YELLOW;
 	std::cout << "Before mergeSort->Vector"; printContainer(varr); std::cout << std::endl;
-	std::cout << RED"The Order Vector ";checkOrder(varr);
+	// std::cout << RED"The Order Vector ";
+	checkOrder(varr);
 	std::cout << BLUE;
 	std::cout << "Before mergeSort->Deque"; printContainer(darr); std::cout << std::endl;
-	std::cout << RED"The Order Deque ";checkOrder(darr);
-	// auto vec_start = std::chrono::steady_clock::now();
-	// std::chrono::steady_clock::time_point vec_start = std::chrono::steady_clock::now();
+	// std::cout << RED"The Order Deque ";
+	checkOrder(darr);
 	std::cout << ORANGE"\n\n\t [   Pmerge Sort Being Executed ....?   ]"RESET;
 	std::chrono::microseconds vector_duration = pmerge_me(varr);
 	std::chrono::microseconds deque_duration = pmerge_me(darr);
-	// auto vec_end = std::chrono::steady_clock::now();
-	// std::chrono::steady_clock::time_point vec_end = std::chrono::steady_clock::now();
-	// std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(vec_end - vec_start);
 	std::cout << CYAN"\n\n\nTHE ORDER AFTER CONTAINERS TO EXECUTE FORD-JOHNSON\n"RESET;
 	std::cout << YELLOW;
 	std::cout << "After mergeSort->Vector"; printContainer(varr); std::cout << std::endl;
-	std::cout << GREEN"The Order Vector ";checkOrder(varr);
+	// std::cout << GREEN"The Order Vector ";
+	checkOrder(varr);
 	std::cout << BLUE;
 	std::cout << "After mergeSort->Deque"; printContainer(darr); std::cout << std::endl;
-	std::cout << GREEN"The Order Deque ";checkOrder(darr);
-	// std::cout << "time taken for V_mergeSort " << (float)((float)(vec_end - vec_start)/ CLOCKS_PER_SEC);
-	// std::cout << "time taken for " << typeid(varr).name() << vector_duration.count();
-
+	// std::cout << GREEN"The Order Deque ";
+	checkOrder(darr);
 	std::cout << CYAN"\n\n\nTHE TIMING TAKEN FOR CONTAINERS TO EXECUTE FORD-JOHNSON\n"RESET;
 	std::cout << YELLOW;
 	std::cout << "time taken for " << "vector : " << vector_duration.count() << " microseconds" << std::endl;
@@ -125,9 +107,5 @@ int main(int ac, char **av)
 	std::cout << RESET;
 	checkOrder(varr);
 	checkEqual(varr, darr);
-	// clock_t vec_start = clock();
-	// mergeSort(varr, varr[varr.size()/2]);
-	// clock_t vec_start = clock();
-	// std::cout << "After mergeSort"; printContainer(varr); std::cout << std::endl;
-	// printContainer (varr);
+	// system("leaks -q PmergeMe");
 }

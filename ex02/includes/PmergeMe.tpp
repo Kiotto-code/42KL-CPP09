@@ -2,25 +2,6 @@
 # define PMERGEME_TPP
 
 # include "PmergeMe.hpp"
-// #include <string>
-// #include <typeinfo>
-
-// void mergeSort(Container&arr, int threshold);
-
-// template<typename Container>
-// void insertionSort(Container &arr) {
-//     for (int i = 1; i < arr.size(); ++i) {
-//         int key = arr[i];
-//         // decltype(arr[i]) key = arr[i];
-//         // decltype(arr::value_type) key = arr[i];
-//         int j = i - 1;
-//         while (j >= 0 && arr[j] > key) {
-//             arr[j + 1] = arr[j];
-//             j = j - 1;
-//         }
-//         arr[j + 1] = key;
-//     }
-// }
 
 template<typename Container>
 int binarySearch(Container &arr, int low, int high, int key) {
@@ -39,7 +20,26 @@ int binarySearch(Container &arr, int low, int high, int key) {
 
 // Function to perform Binary Insertion Sort
 template<typename Container>
-// Actually BinaryInsertionSort
+// void insertionSort(Container &arr) {
+//     Container arrCopy(arr.begin(), arr.end());
+//     int n = arr.size();
+//     for (int i = 1; i < n; ++i) {
+//         int key = arr[i];
+//         int j = i - 1;
+
+//         // Find the correct position using binary search
+//         int insertionIndex = binarySearch(arr, 0, j, key);
+
+//         // Move elements to make space for the key
+//         while (j >= insertionIndex) {
+//             arr[j + 1] = arr[j];
+//             j--;
+//         }
+
+//         arr[insertionIndex] = key;
+//     }
+// }
+
 void insertionSort(Container &arr) {
     int n = arr.size();
     for (int i = 1; i < n; ++i) {
@@ -49,18 +49,14 @@ void insertionSort(Container &arr) {
         // Find the correct position using binary search
         int insertionIndex = binarySearch(arr, 0, j, key);
 
-        // Move elements to make space for the key
-        while (j >= insertionIndex) {
-            arr[j + 1] = arr[j];
-            j--;
-        }
+        // Use insert to add the key at the correct position
+        arr.insert(arr.begin() + insertionIndex, key);
 
-        // Insert the key at the correct position
-        arr[insertionIndex] = key;
+        // Erase the original occurrence of the key (if it was moved)
+        arr.erase(arr.begin() + i + 1);
     }
 }
 
-// Merge sort implementation with the merge-insertion sort optimization
 // Merge sort implementation with the merge-insertion sort optimization
 template<typename Container>
 void mergeSort(Container& arr, int threshold = 30) {
@@ -79,21 +75,21 @@ void mergeSort(Container& arr, int threshold = 30) {
 
         while (it_left != leftHalf.end() && it_right != rightHalf.end()) {
             if (*it_left < *it_right) {
-                arr.insert(arr.end(), *it_left);
+                arr.push_back(*it_left);
                 it_left++;
             } else {
-                arr.insert(arr.end(), *it_right);
+                arr.push_back(*it_right);
                 it_right++;
             }
         }
 
         while (it_left != leftHalf.end()) {
-            arr.insert(arr.end(), *it_left);
+            arr.push_back(*it_left);
             it_left++;
         }
 
         while (it_right != rightHalf.end()) {
-            arr.insert(arr.end(), *it_right);
+            arr.push_back(*it_right);
             it_right++;
         }
 
@@ -102,7 +98,6 @@ void mergeSort(Container& arr, int threshold = 30) {
         // binaryInsertionSort(arr);
     }
 }
-
 // template<typename Container>
 // void mergeSort(Container& arr, int threshold = 30) {
 //     if (arr.size() > threshold) {
@@ -110,46 +105,47 @@ void mergeSort(Container& arr, int threshold = 30) {
 //         Container leftHalf(arr.begin(), arr.begin() + mid);
 //         Container rightHalf(arr.begin() + mid, arr.end());
 
-//         // std::cout << RED"check:" << demangle(typeid(leftHalf).name()) << std::endl;
-
 //         mergeSort(leftHalf, threshold);
 //         mergeSort(rightHalf, threshold);
 
-//         int i = 0, j = 0, k = 0;
+//         // Container arr;
+//         arr.clear();
+//         typename Container::iterator it_left = leftHalf.begin();
+//         typename Container::iterator it_right = rightHalf.begin();
 
-//         while (i < leftHalf.size() && j < rightHalf.size()) {
-//             if (leftHalf[i] < rightHalf[j]) {
-//                 arr[k] = leftHalf[i];
-//                 i++;
+//         while (it_left != leftHalf.end() && it_right != rightHalf.end()) {
+//             if (*it_left < *it_right) {
+//                 arr.insert(arr.end(), *it_left);
+//                 it_left++;
 //             } else {
-//                 arr[k] = rightHalf[j];
-//                 j++;
+//                 arr.insert(arr.end(), *it_right);
+//                 it_right++;
 //             }
-//             k++;
 //         }
 
-//         while (i < leftHalf.size()) {
-//             arr[k] = leftHalf[i];
-//             i++;
-//             k++;
+//         while (it_left != leftHalf.end()) {
+//             arr.insert(arr.end(), *it_left);
+//             it_left++;
 //         }
 
-//         while (j < rightHalf.size()) {
-//             arr[k] = rightHalf[j];
-//             j++;
-//             k++;
+//         while (it_right != rightHalf.end()) {
+//             arr.insert(arr.end(), *it_right);
+//             it_right++;
 //         }
+
 //     } else {
 //         insertionSort(arr);
+//         // binaryInsertionSort(arr);
 //     }
 // }
+
 
 template<typename Container>
 std::chrono::microseconds pmerge_me(Container &merge_vector)
 {
     std::chrono::steady_clock::time_point vec_start = std::chrono::steady_clock::now();
-	mergeSort(merge_vector);
-	// mergeSort(merge_vector, merge_vector[merge_vector.size()/2]);
+	// mergeSort(merge_vector);
+	mergeSort(merge_vector, merge_vector[merge_vector.size()/2]);
     std::chrono::steady_clock::time_point vec_end = std::chrono::steady_clock::now();
     std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(vec_end - vec_start);
     return duration;
