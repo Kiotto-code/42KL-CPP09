@@ -59,17 +59,23 @@ int main(int ac, char **av)
 	av++;
 	while (*av)
 	{
-		int num_elem = atoi(*av);
+		int num_elem = strtol(*av, NULL, 10);
+		// int num_elem = atoi(*av);
 		if (checkNumberStr(*av) == false)
 		{
 			std::cout << "The argument is not number" << std::endl;
 			return 1;
 		}
-		else if (num_elem < 0)
+		else if (num_elem < 0 || num_elem > std::numeric_limits<int>::max())
 		{
-			std::cout << "The argumentvalue given must be positve" << std::endl;
+			std::cout << "The argumentvalue out range" << std::endl;
 			return 1;
 		}
+		// else if (num_elem < 0)
+		// {
+		// 	std::cout << "The argumentvalue given must be positve" << std::endl;
+		// 	return 1;
+		// }
 		else
 		{
 			varr.push_back(num_elem);
