@@ -6,6 +6,9 @@
 #include <map>
 // #include <list>
 #include <fstream>
+#include <sstream>
+#include <cstring>
+#include <exception>
 #include <time.h> //strptime()
 
 # define GREEN	"\x1B[0;92m"
@@ -67,7 +70,7 @@ class tooEarlyBirdError : public std::exception{
 	public : const char* what() const throw();
 };
 
-int checkFormat(std::string date);
+time_t checkFormat(std::string date);
 
 void spaceRemoval(std::string &line);
 

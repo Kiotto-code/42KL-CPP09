@@ -54,19 +54,25 @@ void BitcoinExchange::dictCat(const std::string & path)
 		spaceRemoval(line);
 		insertToMap(line);
 	}
+	// std::cin.get();
 	file.close();
 }
-
 void BitcoinExchange::insertToMap(std::string line)
 {
 	char original[line.size() + 1];
 	strcpy(original, line.c_str());
+	char *sec_token;
 
-	int date = checkFormat(strtok(original, ","));
+	// std::cin.get();
+	int date = checkFormat(std::strtok(original, ","));
 	// std::cerr << "check:" << "date: " << date << std::endl;
 	// std::cout << "check: " << date << std::endl;
-	double rate = strtod(strtok(NULL, ","), NULL);
+	sec_token =  std::strtok(NULL, ",");
+	// if (sec_token == NULL)
+	// 	throw wrongFormatException();
+	double rate = std::strtod(sec_token, NULL);
 	this->dict[date] = rate;
+	// std::cin.get();
 }
 
 std::string BitcoinExchange::realDate(int date)
@@ -88,7 +94,7 @@ std::map <int, double> &BitcoinExchange::getDict(void)
 	return this->dict;
 }
 
-int checkFormat(std::string date)
+time_t checkFormat(std::string date)
 {
 	struct tm tm; //for the use of strptime() parameter
 	char *ret;

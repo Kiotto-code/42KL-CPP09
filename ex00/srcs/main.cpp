@@ -34,25 +34,30 @@ int main(int ac, char **av)
 	while(std::getline(file, fileline))
 	{
 		try{
-			char * temp;
+			std::string temp;
+			// std::string token;
+			// std::stringstream ss(fileline);
 
 			// temp = strcpy(temp, fileline.c_str());
 			spaceRemoval(fileline);
-			temp = strdup(fileline.c_str());
+			// std::getline(ss, token, '|');
+			// std::cout << token;
+			// std::cin.get();
+			// temp = strdup(fileline.c_str());
 			// std::cerr << "check:" << "fileline: " << temp << std::endl;
 
-			// std::cerr << "check:" << "filedate: " << "|" <<strtok(temp, "|") << "|"  << std::endl;
+			// std::cerr << "check:" << "filedate: " << "|" <<std::strtok(temp, "|") << "|"  << std::endl;
 
-			int filedate = checkFormat(strtok(temp, "|"));
+			int filedate = checkFormat(std::strtok(const_cast<char *>(fileline.c_str()), "|"));
 			// std::cerr << "check:" << "filedate: " << filedate << std::endl;
 			errno = 0;
-			char * valuestring = strtok(NULL, "|");
+			char * valuestring = std::strtok(NULL, "|");
 			if (errno != 0)
 				throw wrongFormatException();
 			if (valuestring == NULL)
 				throw  badInput();
 			// std::cout << "check:" << valuestring << std::endl;
-			double filevalue = strtod(valuestring, NULL);
+			double filevalue = std::strtod(valuestring, NULL);
 			if (errno != 0)
 				throw wrongFormatException();
 			if (filevalue < 0)
@@ -67,6 +72,8 @@ int main(int ac, char **av)
 			// int currentDate = filedate;
 			if (Bitcoin.empty() || filedate < Bitcoin.begin()->first)
 				throw (tooEarlyBirdError());
+			if (filedate > std::prev(Bitcoin.end())->first)
+				throw (std::runtime_error("Too BIG"));
 			std::map<int, double>::iterator it = Bitcoin.lower_bound(filedate);
 			if (filedate < it->first)
 				it --;
@@ -76,7 +83,7 @@ int main(int ac, char **av)
 
 
 
-			free(temp);
+			// free(temp);
 		}
 		catch(badInput &e)
 		{
