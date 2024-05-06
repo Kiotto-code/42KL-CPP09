@@ -4,7 +4,8 @@ int	RPN(std::string equation)
 {
 	std::stack<int> RPN;
 	std::string token;
-	std::istringstream insert(equation);
+	// std::istringstream insert(equation);
+	std::stringstream insert(equation);
 
 	while (insert >> token)
 	{
@@ -16,12 +17,12 @@ int	RPN(std::string equation)
 			RPN.push(atoi(token.c_str()));
 		else{ // when the token[0] is not digit, checking for "+-*/ "
 			if (RPN.empty())
-				throw std::runtime_error("Error");
+				throw std::runtime_error("Error1");
 			int lower_elem = RPN.top();
 			RPN.pop();
 
 			if (RPN.empty())
-				throw std::runtime_error("Error");
+				throw std::runtime_error("Error2");
 			int upper_elem = RPN.top();
 			RPN.pop();
 

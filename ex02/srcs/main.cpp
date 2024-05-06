@@ -59,7 +59,7 @@ int main(int ac, char **av)
 	av++;
 	while (*av)
 	{
-		int num_elem = strtol(*av, NULL, 10);
+		int num_elem = std::strtol(*av, NULL, 10);
 		// int num_elem = atoi(*av);
 		if (checkNumberStr(*av) == false)
 		{
