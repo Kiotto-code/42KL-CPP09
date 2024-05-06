@@ -68,8 +68,8 @@ void BitcoinExchange::insertToMap(std::string line)
 	// std::cerr << "check:" << "date: " << date << std::endl;
 	// std::cout << "check: " << date << std::endl;
 	sec_token =  std::strtok(NULL, ",");
-	// if (sec_token == NULL)
-	// 	throw wrongFormatException();
+	if (sec_token == NULL)
+		throw wrongFormatException();
 	double rate = std::strtod(sec_token, NULL);
 	this->dict[date] = rate;
 	// std::cin.get();
@@ -108,7 +108,7 @@ time_t checkFormat(std::string date)
 	}
 	catch(wrongFormatException &e)
 	{
-		// std::cerr << e.what() << '\n';
+		std::cerr << e.what() << '\n';
 	}
 	return false;
 }
