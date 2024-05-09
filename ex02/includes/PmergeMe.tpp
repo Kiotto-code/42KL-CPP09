@@ -145,7 +145,8 @@ std::chrono::microseconds pmerge_me(Container &merge_vector)
 {
     std::chrono::steady_clock::time_point vec_start = std::chrono::steady_clock::now();
 	// mergeSort(merge_vector);
-	mergeSort(merge_vector, merge_vector[merge_vector.size()/2]);
+	// mergeSort(merge_vector, merge_vector[merge_vector.size()/2]);
+	mergeSort(merge_vector, merge_vector.size()/2);
     std::chrono::steady_clock::time_point vec_end = std::chrono::steady_clock::now();
     std::chrono::microseconds duration = std::chrono::duration_cast<std::chrono::microseconds>(vec_end - vec_start);
     return duration;
