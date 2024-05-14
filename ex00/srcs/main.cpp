@@ -19,7 +19,8 @@ int main(int ac, char **av)
 	}
 	catch(wrongFormatException &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << "data.csv format error: " << e.what() << '\n';
+		exit(1);
 	}
 	
 	file.open(av[1]);
@@ -44,12 +45,13 @@ int main(int ac, char **av)
 			// std::cout << token;
 			// std::cin.get();
 			// temp = strdup(fileline.c_str());
-			// std::cerr << "check:" << "fileline: " << temp << std::endl;
+			// std::cerr << "check:" << "fileline: " << fileline << std::endl;
 
 			// std::cerr << "check:" << "filedate: " << "|" <<std::strtok(temp, "|") << "|"  << std::endl;
 
 			int filedate = checkFormat(std::strtok(const_cast<char *>(fileline.c_str()), "|"));
 			// std::cerr << "check:" << "filedate: " << filedate << std::endl;
+			// std::cin.get();
 			errno = 0;
 			char * valuestring = std::strtok(NULL, "|");
 			if (errno != 0)

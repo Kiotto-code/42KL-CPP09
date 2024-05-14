@@ -17,12 +17,12 @@ int	RPN(std::string equation)
 			RPN.push(atoi(token.c_str()));
 		else{ // when the token[0] is not digit, checking for "+-*/ "
 			if (RPN.empty())
-				throw std::runtime_error("Error1");
+				throw std::runtime_error("Error1: not digit, empty digit");
 			int lower_elem = RPN.top();
 			RPN.pop();
 
 			if (RPN.empty())
-				throw std::runtime_error("Error2");
+				throw std::runtime_error("Error2: not digit, empty digit");
 			int upper_elem = RPN.top();
 			RPN.pop();
 

@@ -74,6 +74,9 @@ time_t checkFormat(std::string date);
 
 void spaceRemoval(std::string &line);
 
+bool isLeapYear(int year);
+bool isValidDate(int year, int month, int day);
+
 // void	rateCompare(BitcoinExchange &bitcoinRecord,const std::string path)
 // {
 // 	std::ifstream file;

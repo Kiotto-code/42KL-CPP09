@@ -65,6 +65,8 @@ void BitcoinExchange::insertToMap(std::string line)
 
 	// std::cin.get();
 	int date = checkFormat(std::strtok(original, ","));
+	// if (date == false)
+	// 	exit(1);
 	// std::cerr << "check:" << "date: " << date << std::endl;
 	// std::cout << "check: " << date << std::endl;
 	sec_token =  std::strtok(NULL, ",");
@@ -99,19 +101,35 @@ time_t checkFormat(std::string date)
 	struct tm tm; //for the use of strptime() parameter
 	char *ret;
 
-	try
-	{
-		ret = strptime(date.c_str(), "%Y-%m-%d", &tm); //strptime would return null if the date given is invalid ;).
-		if (ret == NULL || *ret != '\0')//when eof it would return a NUL character "\0"
-			throw wrongFormatException();
-		return tm.tm_year * 10000 + tm.tm_mon * 100 + tm.tm_mday; //return the info in the integer
-	}
-	catch(wrongFormatException &e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	return false;
+	ret = strptime(date.c_str(), "%Y-%m-%d", &tm); //strptime would return null if the date given is invalid ;).
+	if (ret == NULL || *ret != '\0')//when eof it would return a NUL character "\0"
+		throw wrongFormatException();
+	// std::cout << tm.tm_year << " " << tm.tm_mon << " " << tm.tm_mday << std::endl;
+	if (isValidDate(tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday) == false)
+		throw wrongFormatException();
+	return tm.tm_year * 10000 + tm.tm_mon * 100 + tm.tm_mday; //return the info in the integer
 }
+// time_t checkFormat(std::string date)
+// {
+// 	struct tm tm; //for the use of strptime() parameter
+// 	char *ret;
+
+// 	try
+// 	{
+// 		ret = strptime(date.c_str(), "%Y-%m-%d", &tm); //strptime would return null if the date given is invalid ;).
+// 		if (ret == NULL || *ret != '\0')//when eof it would return a NUL character "\0"
+// 			throw wrongFormatException();
+// 		// std::cout << tm.tm_year << " " << tm.tm_mon << " " << tm.tm_mday << std::endl;
+// 		if (isValidDate(tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday) == false)
+// 			throw wrongFormatException();
+// 		return tm.tm_year * 10000 + tm.tm_mon * 100 + tm.tm_mday; //return the info in the integer
+// 	}
+// 	catch(wrongFormatException &e)
+// 	{
+// 		std::cerr << e.what() << '\n';
+// 	}
+// 	return false;
+// }
 
 void spaceRemoval(std::string &line)
 {
