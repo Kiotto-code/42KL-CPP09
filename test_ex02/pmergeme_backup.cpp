@@ -3,8 +3,7 @@
 
 # include "PmergeMe.hpp"
 
-template<typename Container>
-int binarySearch(Container &arr, int low, int high, int key) {
+int binarySearch(std::vector &arr, int low, int high, int key) {
     while (low <= high) {
         int mid = low + (high - low) / 2;
         if (arr[mid] == key) {
@@ -19,8 +18,7 @@ int binarySearch(Container &arr, int low, int high, int key) {
 }
 
 // Function to perform Binary Insertion Sort
-template<typename Container>
-void insertionSort(Container &arr) {
+void insertionSort(std::vector &arr) {
     int n = arr.size();
     for (int i = 1; i < n; ++i) {
         int key = arr[i];
@@ -36,22 +34,21 @@ void insertionSort(Container &arr) {
         arr.erase(arr.begin() + i + 1);
     }
 }
+
 // Merge sort implementation with the merge-insertion sort optimization
-void mergeSort(std::vector<int>& arr, int threshold = 30) {
+void mergeSort(std::vector& arr, int threshold = 30) {
     if (arr.size() > threshold) {
         int mid = arr.size() / 2;
-        std::vector<int> leftHalf(arr.begin(), arr.begin() + mid);
-        std::vector<int> rightHalf(arr.begin() + mid, arr.end());
+        std::vector leftHalf(arr.begin(), arr.begin() + mid);
+        std::vector rightHalf(arr.begin() + mid, arr.end());
 
-		threshold = leftHalf.size()/2 > 30 ? leftHalf.size()/2 : 30;
         mergeSort(leftHalf, threshold);
-		threshold = rightHalf.size()/2 > 30 ? rightHalf.size()/2 : 30;
         mergeSort(rightHalf, threshold);
 
-        // std::vector<int> arr;
+        // std::vector arr;
         arr.clear();
-        std::vector<int>::iterator it_left = leftHalf.begin();
-        std::vector<int>::iterator it_right = rightHalf.begin();
+        typename std::vector::iterator it_left = leftHalf.begin();
+        typename std::vector::iterator it_right = rightHalf.begin();
 
         while (it_left != leftHalf.end() && it_right != rightHalf.end()) {
             if (*it_left < *it_right) {
@@ -79,50 +76,7 @@ void mergeSort(std::vector<int>& arr, int threshold = 30) {
     }
 }
 
-void mergeSort(std::deque<int>& arr, int threshold = 30) {
-    if (arr.size() > threshold) {
-        int mid = arr.size() / 2;
-        std::deque<int> leftHalf(arr.begin(), arr.begin() + mid);
-        std::deque<int> rightHalf(arr.begin() + mid, arr.end());
-
-		threshold = leftHalf.size()/2 > 30 ? leftHalf.size()/2 : 30;
-        mergeSort(leftHalf, threshold);
-		threshold = rightHalf.size()/2 > 30 ? rightHalf.size()/2 : 30;
-        mergeSort(rightHalf, threshold);
-
-        // std::deque<int> arr;
-        arr.clear();
-        std::deque<int>::iterator it_left = leftHalf.begin();
-        std::deque<int>::iterator it_right = rightHalf.begin();
-
-        while (it_left != leftHalf.end() && it_right != rightHalf.end()) {
-            if (*it_left < *it_right) {
-                arr.push_back(*it_left);
-                it_left++;
-            } else {
-                arr.push_back(*it_right);
-                it_right++;
-            }
-        }
-
-        while (it_left != leftHalf.end()) {
-            arr.push_back(*it_left);
-            it_left++;
-        }
-
-        while (it_right != rightHalf.end()) {
-            arr.push_back(*it_right);
-            it_right++;
-        }
-
-    } else {
-        insertionSort(arr);
-        // binaryInsertionSort(arr);
-    }
-}
-
-template<typename Container>
-std::chrono::microseconds pmerge_me(Container &merge_vector)
+std::chrono::microseconds pmerge_me(std::vector &merge_vector)
 {
     std::chrono::steady_clock::time_point vec_start = std::chrono::steady_clock::now();
 	// mergeSort(merge_vector);

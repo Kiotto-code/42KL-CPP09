@@ -27,7 +27,9 @@ void fordJohnsonSort(std::vector<int>& arr) {
             std::swap(item, arr[pos]);
         }
 
-		std::cout << arr(std::begin(arr), std::end(arr)) << std::endl;
+		std::for_each(std::begin(arr), std::end(arr), [](int num) {
+			std::cout << num << " ";
+		});
         while (pos != cycleStart) {
             pos = cycleStart;
             for (int i = cycleStart + 1; i < n; i++) {

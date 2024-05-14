@@ -1,6 +1,6 @@
 NAME			=	PmergeMe
 CXX				=	c++
-CXXFLAG			=	-Wall -Werror -Wextra -std=c++98 -g3 #-fsanitize=address
+CXXFLAG			=	-Wall -Werror -Wextra -std=c++98 -g3 -fsanitize=address
 CXXFLAG			=	-std=c++98 -g3 -fsanitize=address -Wall -MMD -MF $(@:.o=.d)
 INCLUDES		=	./includes
 SRCS_PATH		=	./srcs
