@@ -7,7 +7,6 @@ int main(int ac, char **av)
 
 	BitcoinExchange b;
 
-	// std::set_terminate(my_terminate);
 	if (ac != 2)
 	{
 		std::cout << "Wrong Progam Format: " << "two arguments required" << std::endl;
@@ -34,31 +33,19 @@ int main(int ac, char **av)
 	std::getline(file, fileline);
 	while(std::getline(file, fileline))
 	{
+		if (fileline.empty())
+			continue;
 		try{
 			std::string temp;
-			// std::string token;
-			// std::stringstream ss(fileline);
-
-			// temp = strcpy(temp, fileline.c_str());
 			spaceRemoval(fileline);
-			// std::getline(ss, token, '|');
-			// std::cout << token;
-			// std::cin.get();
-			// temp = strdup(fileline.c_str());
-			// std::cerr << "check:" << "fileline: " << fileline << std::endl;
-
-			// std::cerr << "check:" << "filedate: " << "|" <<std::strtok(temp, "|") << "|"  << std::endl;
-
 			int filedate = checkFormat(std::strtok(const_cast<char *>(fileline.c_str()), "|"));
-			// std::cerr << "check:" << "filedate: " << filedate << std::endl;
-			// std::cin.get();
+
 			errno = 0;
 			char * valuestring = std::strtok(NULL, "|");
 			if (errno != 0)
 				throw wrongFormatException();
 			if (valuestring == NULL)
 				throw  badInput();
-			// std::cout << "check:" << valuestring << std::endl;
 			double filevalue = std::strtod(valuestring, NULL);
 			if (errno != 0)
 				throw wrongFormatException();
@@ -66,12 +53,7 @@ int main(int ac, char **av)
 				throw negativeValue();
 			if (filevalue > 1000)
 				throw largeNumber();
-			
-			// std::cout << '|' << filevalue << '|' << std::endl;
-			// std::cout << "next line {}" << std::endl;
 
-
-			// int currentDate = filedate;
 			if (Bitcoin.empty() || filedate < Bitcoin.begin()->first)
 				throw (tooEarlyBirdError());
 			if (filedate > std::prev(Bitcoin.end())->first)
@@ -79,13 +61,8 @@ int main(int ac, char **av)
 			std::map<int, double>::iterator it = Bitcoin.lower_bound(filedate);
 			if (filedate < it->first)
 				it --;
-			// std::cout << GREEN"check: "RESET << "bitcoin exchange rate * value :" << it->second * filevalue << std::endl;
 			double evaluated_price = it->second * filevalue;
 			std::cout << BitcoinExchange::realDate(filedate) << " => " << filevalue << " = " << evaluated_price << std::endl;
-
-
-
-			// free(temp);
 		}
 		catch(badInput &e)
 		{

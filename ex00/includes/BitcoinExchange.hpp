@@ -77,17 +77,5 @@ void spaceRemoval(std::string &line);
 bool isLeapYear(int year);
 bool isValidDate(int year, int month, int day);
 
-// void	rateCompare(BitcoinExchange &bitcoinRecord,const std::string path)
-// {
-// 	std::ifstream file;
-
-// 	file.open(path);
-// 	if (!file.is_open())
-// 	{
-// 		std::cerr << "Failed to open the file!" << std::endl;
-// 		return ;
-// 	}
-// 	while (s)
-// }
 
 #endif
