@@ -84,7 +84,7 @@ int main(int ac, char **av)
 	}
 	file.close();
 
-
+	system("leaks btc");
 	return (0);
 	(void)ac;
 }

@@ -5,6 +5,7 @@
 
 # include <vector>
 # include <deque>
+# include <list>
 
 # include <iomanip>
 # include <stdexcept>

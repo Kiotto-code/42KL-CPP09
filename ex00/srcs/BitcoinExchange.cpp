@@ -100,7 +100,7 @@ time_t checkFormat(std::string date)
 
 	ret = strptime(date.c_str(), "%Y-%m-%d", &tm); //strptime would return null if the date given is invalid ;).
 	if (ret == NULL || *ret != '\0')//when eof it would return a NUL character "\0"
-		throw wrongFormatException();
+		throw badInput();
 	// std::cout << tm.tm_year << " " << tm.tm_mon << " " << tm.tm_mday << std::endl;
 	if (isValidDate(tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday) == false)
 		throw wrongFormatException();
