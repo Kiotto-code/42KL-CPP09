@@ -107,11 +107,13 @@ int main(int ac, char **av)
 	checkOrder(darr);
 	std::cout << CYAN"\n\n\nTHE TIMING TAKEN FOR CONTAINERS TO EXECUTE FORD-JOHNSON\n"RESET;
 	std::cout << YELLOW;
-	std::cout << "time taken for " << "vector : " << vector_duration.count() << " microseconds" << std::endl;
+	std::cout << "Time to process a range of " << varr.size() << " elements with std::"<< "vector : " << std::setw(10) << vector_duration.count() << " microseconds" << std::endl;
 	std::cout << BLUE;
-	std::cout << "time taken for " << "deque : " << deque_duration.count() << " microseconds" << std::endl;
+	std::cout << "Time to process a range of " << darr.size() << " elements with std::" <<"deque  : " << std::setw(10) << deque_duration.count() << " microseconds" << std::endl;
 	std::cout << RESET;
 	checkOrder(varr);
 	checkEqual(varr, darr);
 	// system("leaks -q PmergeMe");
 }
+
+// Time to process a range of 3000 elements with std::[..] : 62.14389 us
