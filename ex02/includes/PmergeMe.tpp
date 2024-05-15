@@ -80,14 +80,15 @@ void mergeSort(std::vector<int>& arr, int threshold = 30) {
 }
 
 void mergeSort(std::deque<int>& arr, int threshold = 30) {
+	int insertion_subsize = INSERTION_SUBSIZE;
     if (arr.size() > threshold) {
         int mid = arr.size() / 2;
         std::deque<int> leftHalf(arr.begin(), arr.begin() + mid);
         std::deque<int> rightHalf(arr.begin() + mid, arr.end());
 
-		threshold = leftHalf.size()/2 > 30 ? leftHalf.size()/2 : 30;
+		threshold = leftHalf.size()/2 > insertion_subsize ? leftHalf.size()/2 : insertion_subsize;
         mergeSort(leftHalf, threshold);
-		threshold = rightHalf.size()/2 > 30 ? rightHalf.size()/2 : 30;
+		threshold = rightHalf.size()/2 > insertion_subsize ? rightHalf.size()/2 : insertion_subsize;
         mergeSort(rightHalf, threshold);
 
         // std::deque<int> arr;

@@ -12,11 +12,11 @@
 # include <string>
 # include "color.hpp"
 
+#define INSERTION_SUBSIZE	300
 enum suit {
 	SORTED = 0,
 	UNSORTED,
 };
-
 
 # include "PmergeMe.tpp"
 
