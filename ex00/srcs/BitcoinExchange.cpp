@@ -42,8 +42,9 @@ void BitcoinExchange::dictCat(const std::string & path)
 	file.open(path);
 	if (!file.is_open())
 	{
-		std::cerr << "Failed to open the file!" << std::endl;
-		return ;
+		// std::cerr << "Failed to open the file!" << std::endl;
+		throw std::runtime_error("Failed to open the file!");
+		// return ;
 	}
 	std::getline(file, line);
 	while(std::getline(file, line))

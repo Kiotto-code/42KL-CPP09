@@ -83,7 +83,7 @@ int main(int ac, char **av)
 		av++;
 	}
 	std::deque<int> darr(varr.begin(), varr.end());
-	std::list<int> larr(varr.begin(), varr.end());
+	// std::list<int> larr(varr.begin(), varr.end());
 
 	std::cout << CYAN"\n\n\nTHE ORDER BEFORE CONTAINERS TO EXECUTE FORD-JOHNSON\n"RESET;
 	std::cout << YELLOW;
@@ -97,7 +97,7 @@ int main(int ac, char **av)
 	std::cout << ORANGE"\n\n\t [   Pmerge Sort Being Executed ....?   ]"RESET;
 	std::chrono::microseconds vector_duration = pmerge_me(varr);
 	std::chrono::microseconds deque_duration = pmerge_me(darr);
-	std::chrono::microseconds list_duration = pmerge_me(larr);
+	// std::chrono::microseconds list_duration = pmerge_me(larr);
 	// (void) list_duration;
 	std::cout << CYAN"\n\n\nTHE ORDER AFTER CONTAINERS TO EXECUTE FORD-JOHNSON\n"RESET;
 	std::cout << YELLOW;
@@ -114,10 +114,10 @@ int main(int ac, char **av)
 	std::cout << BLUE;
 	std::cout << "Time to process a range of " << darr.size() << " elements with std::" <<"deque  : " << std::setw(10) << deque_duration.count() << " microseconds" << std::endl;
 	std::cout << RESET;
-	std::cout << "Time to process a range of " << larr.size() << " elements with std::" <<"deque  : " << std::setw(10) << list_duration.count() << " microseconds" << std::endl;
-	std::cout << RESET;
+	// std::cout << "Time to process a range of " << larr.size() << " elements with std::" <<"deque  : " << std::setw(10) << list_duration.count() << " microseconds" << std::endl;
+	// std::cout << RESET;
 	checkOrder(varr);
-	checkOrder(larr);
+	// checkOrder(larr);
 	checkEqual(varr, darr);
 	
 	// system("leaks -q PmergeMe");

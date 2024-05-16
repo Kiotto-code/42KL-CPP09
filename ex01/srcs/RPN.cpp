@@ -33,7 +33,11 @@ int	RPN(std::string equation)
 			else if (token[0] == '*')
 				RPN.push(upper_elem * lower_elem);
 			else if (token[0] == '/')
+			{
+				if (lower_elem == 0)
+					throw std::runtime_error("Error3: Division by zero");
 				RPN.push(upper_elem / lower_elem);
+			}
 			else if (token[0] != ' ')
 				throw std::runtime_error("Error4"); //anything other than given symbol / digits should be error handled
 			// else

@@ -21,6 +21,11 @@ int main(int ac, char **av)
 		std::cerr << "data.csv format error: " << e.what() << '\n';
 		exit(1);
 	}
+	catch(std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+		exit(1);
+	}
 	
 	file.open(av[1]);
 	if(!file.is_open())
@@ -31,6 +36,11 @@ int main(int ac, char **av)
 	std::map <int, double> Bitcoin = b.getDict();
 
 	std::getline(file, fileline);
+	if (fileline != "date | value")
+	{
+		std::cerr << "Error: wrong file format \"Date|Value\"" << std::endl;
+		return 1;
+	}
 	while(std::getline(file, fileline))
 	{
 		if (fileline.empty())
@@ -42,6 +52,8 @@ int main(int ac, char **av)
 
 			errno = 0;
 			char * valuestring = std::strtok(NULL, "|");
+			if (std::strtok(NULL, "|") != NULL )
+				throw wrongFormatException();
 			if (errno != 0)
 				throw wrongFormatException();
 			if (valuestring == NULL)

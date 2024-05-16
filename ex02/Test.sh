@@ -3,7 +3,7 @@
 #!/bin/bash
 
 # Default value for tmp
-tmp=3000
+tmp=10000
 
 # Check if a command-line argument is provided
 if [ $# -ne 0 ]; then
